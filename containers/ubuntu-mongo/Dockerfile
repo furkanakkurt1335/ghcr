@@ -10,7 +10,7 @@ RUN apt-get update \
     && apt-get -y install --no-install-recommends \
         git \
         wget \
-        gnupg curl systemd \
+        gnupg curl \
         cmake \
         ninja-build \
         build-essential \
