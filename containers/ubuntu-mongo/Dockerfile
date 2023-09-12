@@ -1,20 +1,16 @@
-# Local Usage:
-# ```
-# docker build -t ghcr.io/bouncmpe/cuda-python3 containers/cuda-python3/
-# docker run -it --rm --gpus=all ghcr.io/bouncmpe/cuda-python3
-# ```
-
 FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
 
-LABEL maintainer="Dogan Ulus"
+LABEL maintainer="Furkan Akkurt"
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
     && apt-get -y install --no-install-recommends \
         git \
         wget \
-        gnupg curl \
+        gnupg curl systemd \
         cmake \
         ninja-build \
         build-essential \
@@ -32,8 +28,6 @@ RUN curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
 RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 
 RUN apt-get update
-
-ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get install -y mongodb-org
 
